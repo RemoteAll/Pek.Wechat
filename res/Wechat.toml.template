@@ -1,0 +1,37 @@
+# Pek.Wechat 微信配置（TOML）
+#
+# 本文件由 Pek.Wechat 生成与维护：首次生成即带全部字段说明；
+# 通过程序修改配置值时，注释与排版会被保留；也可直接编辑（支持注释），保存后自动热加载。
+#
+# 说明：AppSecret 属敏感凭据，不会写入日志（Debug 输出一律脱敏）。
+
+# 微信账号（可多条）：网站应用扫码登录、公众号网页授权、小程序可分别登记，
+# 调用时按 Code 选择；不指定时取默认（IsDefault）账号，否则取 Order 最小的已启用账号。
+#
+# Code：惟一标识（可自行命名，如 site / mp / mini）
+# AppId / AppSecret：微信应用凭证（微信后台 → 开发 → 基本配置；AppSecret 只显示一次）
+# DisplayName：显示名称
+# RedirectUri：授权回调地址（须与微信后台「授权回调域」一致；回调地址自身会被再次 URL 编码）
+# Scope：授权范围
+#        snsapi_login     网站应用微信登录（扫一扫，入口 connect/qrconnect）
+#        snsapi_userinfo  公众号网页授权（可拉取用户资料，入口 connect/oauth2/authorize）
+#        snsapi_base      公众号网页授权（静默，仅 openid）
+# IsDefault：是否默认账号（建议只设一个）
+# IsEnabled：是否启用（未启用账号不会被自动选中）
+# Order：选择顺序（越小越优先）
+# Timeout：请求超时（毫秒，默认 10000）
+# RetryTimes：请求重试次数（默认 3，含首次尝试；仅网络错误与 408/425/429/5xx 重试）
+# InsecureTls：是否跳过 TLS 证书校验（默认 false；仅自签/内网代理调试时使用）
+[[Accounts]]
+Code = "site"
+AppId = ""
+AppSecret = ""
+DisplayName = "网站应用扫码登录"
+RedirectUri = ""
+Scope = "snsapi_login"
+IsDefault = true
+IsEnabled = false
+Order = 10
+Timeout = 10000
+RetryTimes = 3
+InsecureTls = false

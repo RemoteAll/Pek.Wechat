@@ -1,0 +1,26 @@
+[package]
+name = "pek-wechat"
+version = "0.1.0"
+edition = "2024"
+description = "Pek 微信库（Rust）：网站应用扫码登录 / 公众号网页授权 / 小程序登录（对齐 C# DH.SKIT.FlurlHttpClient.Wechat 的 Sns 族），企业微信机器人推送复用 dhrust::wecom"
+authors = ["PeiKeSmart"]
+license = "MIT"
+
+[dependencies]
+# DH 基础库：TOML 配置（TomlConfig）、HTTP（http_client）、URL 查询串（url_with_query）、
+# JSON 取值、安全随机（state）、日志；企业微信机器人推送走 dhrust::wecom
+dhrust = { path = "../DH.RustBase", features = ["toml", "http-client", "http-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+
+[profile.release]
+lto = "thin"
+strip = true
+incremental = true
+
+# 日常调测档（与生态各仓一致）：继承 release 的优化等级，但关闭 LTO、并行 codegen + 增量
+[profile.fast]
+inherits = "release"
+lto = false
+codegen-units = 16
+incremental = true
